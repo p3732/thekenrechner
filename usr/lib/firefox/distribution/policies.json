@@ -1,0 +1,21 @@
+{
+  "policies": {
+    "DisableSetDesktopBackground": true,
+    "DisableAppUpdate": true,
+    "DisableFeedbackCommands": true,
+    "DisableFirefoxStudies": true,
+    "DisablePocket": true,
+    "DisableTelemetry": true,
+    "DisplayMenuBar": false,
+    "DontCheckDefaultBrowser": true,
+
+    "HardwareAcceleration": true,
+    "NoDefaultBookmarks": true,
+
+    "Proxy": {
+      "Locked": true
+    },
+    "SearchBar": "unified",
+    "SearchSuggestEnabled": false
+  }
+}

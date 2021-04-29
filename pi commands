@@ -1,0 +1,104 @@
+###
+#external
+###
+
+fdisk /dev/mmcblk1
+#[format disks]
+
+mkdir raspi
+cd raspi
+mkdir boot
+mkdir root
+wget http://os.archlinuxarm.org/os/ArchLinuxARM-rpi-2-latest.tar.gz
+mount /dev/mmcblk1p2 root/
+mount /dev/mmcblk1p1 boot/
+sudo bsdtar -xpf ArchLinuxARM-rpi-2-latest.tar.gz -C root
+sync
+sudo mv root/boot/* boot
+sync
+#[check that root/boot/ is really empty]
+umount /dev/mmcblk1p1
+mount /dev/mmcblk1p1 root/boot/
+sudo arch-chroot root
+
+###
+# in chroot
+###
+
+
+# general 
+pacman-key --init
+pacman-key --populate
+pacman -Syu
+pacman -S base base-devel xorg openbox wget htop git iputils firefox firefox-ublock-origin alsa-utils mpd feh
+loadkeys de-latin1
+timedatectl set-ntp true
+systemctl enable systemd-timesyncd
+ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime
+hwclock --systohc
+echo "de_DE.UTF-8 UTF-8" >> /etc/locale.gen
+echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
+locale-gen 
+echo KEYMAP=de-latin1 > /etc/vconsole.conf
+echo akk-thekenrechner > /etc/hostname
+echo "127.0.0.1       localhost" >> /etc/hosts
+echo "::1             localhost" >> /etc/hosts
+echo "127.0.1.1       akk-thekenrechner.localdomain   akk-thekenrechner" >> /etc/hosts
+[add 'audit=0' to /boot/cmdline.txt for no noisy audit messages]
+
+# users
+
+useradd -m -G wheel admin
+useradd -m thekenhelfer
+userdel -r alarm
+[uncomment sudo permissions for wheel]
+visudo /etc/sudoers
+[ pw: c0ff33I5very#@+ ]
+passwd admin
+
+mkdir -p /etc/systemd/system/getty@tty1.service.d
+echo '[Service]
+ExecStart=
+ExecStart=-/usr/bin/agetty --autologin username --noclear %I $TERM' > /etc/systemd/system/getty@tty1.service.d/override.conf
+
+echo 'if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
+  exec startx
+fi' > /home/thekenhelfer/.profile
+
+# usb tethering
+echo '# Execute pairing program when appropriate
+ACTION=="add|remove", SUBSYSTEM=="net", ATTR{idVendor}=="22b8" ENV{ID_USB_DRIVER}=="rndis_host", SYMLINK+="android", RUN+="/usr/bin/systemctl restart systemd-networkd.service"
+' > /etc/udev/rules.d/90-android-tethering.rules
+
+echo '[Match]
+Name=usb0
+
+[Network]
+DHCP=ipv4' > /etc/systemd/network/50-usb0.network
+
+
+# yay
+
+[ set MAKEFLAGS="-j5" PKGEXT='.pkg.tar']
+nano /etc/makepkg.conf 
+
+git clone https://aur.archlinux.org/yay.git
+cd yay
+chown -R admin .
+chmod 755 /
+su admin
+
+
+###
+#as admin
+###
+
+
+makepkg -si
+yay systemd-guest-user 
+ssh-keygen
+sudo timedatectl set-ntp true
+su thekenhelfer
+
+
+

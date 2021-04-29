@@ -1,0 +1,7 @@
+# These things are run when an Openbox X Session is started.
+feh --bg-center ~/.config/openbox/thekenrechner_hintergrund.png
+
+while true
+do
+  /usr/bin/firefox 127.0.0.1 && echo "restarting"
+done
