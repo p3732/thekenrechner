@@ -1,5 +1,5 @@
 # These things are run when an Openbox X Session is started.
-feh --bg-center ~/.config/openbox/thekenrechner_hintergrund.png
+feh --bg-center /opt/thekenrechner_bg.png
 
 while true
 do

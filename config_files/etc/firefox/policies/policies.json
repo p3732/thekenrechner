@@ -1,0 +1,97 @@
+{
+  "policies": {
+    "AppAutoUpdate": false,
+    "BlockAboutAddons": true,
+    "BlockAboutConfig": true,
+    "BlockAboutProfiles": true,
+    "BlockAboutSupport": true,
+    "CaptivePortal": false,
+    "DisableSetDesktopBackground": true,
+    "DisableMasterPasswordCreation": true,
+    "DisableDeveloperTools": true,
+    "DisableFeedbackCommands": true,
+    "DisableFirefoxScreenshots": true,
+    "DisableFirefoxAccounts": true,
+    "DisableFirefoxStudies": true,
+    "DisableFormHistory": true,
+    "DisableProfileImport": true,
+    "DisableSystemAddonUpdate": true,
+    "DisablePocket": true,
+    "DisableTelemetry": true,
+    "DisplayMenuBar": "never",
+    "DontCheckDefaultBrowser": true,
+    "ExtensionUpdate": true,
+    "FirefoxHome": {
+      "Search": true,
+      "TopSites": false,
+      "Highlights": false,
+      "Pocket": false,
+      "Snippets": false,
+      "Locked": true
+    },
+    "HardwareAcceleration": true,
+    "Homepage": {
+      "URL": "https://127.0.0.1/",
+      "Locked": true,
+      "StartPage": "homepage-locked"
+    },
+    "InstallAddonsPermission": {
+      "Default": false
+    },
+    "NoDefaultBookmarks": true,
+    "OfferToSaveLogins": false,
+    "OverrideFirstRunPage": "",
+    "OverridePostUpdatePage": "",
+    "PasswordManagerEnabled": false,
+    "PictureInPicture": {
+      "Enabled": false,
+      "Locked": true
+    },
+    "PopupBlocking": {
+      "Default": false,
+      "Locked": true
+    },
+    "PromptForDownloadLocation": false,
+    "Proxy": {
+      "Locked": true
+    },
+    "SearchBar": "unified",
+    "UserMessaging": {
+      "WhatsNew": false,
+      "ExtensionRecommendations":  | false,
+      "FeatureRecommendations": false,
+      "UrlbarInterventions": false,
+      "SkipOnboarding": true
+    },
+    "SearchEngines": {
+      "Add": [
+        {
+          "Name": "Qwant",
+          "SuggestURLTemplate": "https://api.qwant.com/api/suggest/?q={searchTerms}",
+          "URLTemplate": "https://www.qwant.com/?q={searchTerms}"
+        },
+        {
+          "Name": "DeepL",
+          "URLTemplate": "https://www.deepl.com/translator#../de/{searchTerms}"
+        },
+        {
+          "Name": "Google (evil)",
+          "URLTemplate": "https://www.google.com/search?q={searchTerms}"
+        }
+      ],
+      "Default": "DuckDuckGo",
+      "PreventInstalls": true,
+      "Remove": [
+        "Google",
+        "Bing",
+        "Amazon.de",
+        "Amazon.com",
+        "Amazon",
+        "eBay",
+        "Ecosia",
+        "LEO Eng-Deu",
+        "Wikipedia (de)"
+      ]
+    }
+  }
+}
